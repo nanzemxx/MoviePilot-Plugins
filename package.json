@@ -32,12 +32,12 @@
       "v2.1.0": "初始版本：基于NodeSeek签到插件改造，支持DeepFlood论坛签到"
     }
   },
-  "smartsignin": {
-    "name": "智能签到",
-    "description": "智能签到插件，支持CloudFlare绕过，自动模拟登录、签到PT站点",
-    "labels": "签到,PT,自动化,CloudFlare",
+  "sitehelper": {
+    "name": "站点助手",
+    "description": "站点助手插件，支持CloudFlare智能绕过，自动模拟登录、签到PT站点",
+    "labels": "签到,PT,助手,CloudFlare",
     "version": "1.0.0",
-    "icon": "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/smartsignin.png",
+    "icon": "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/sitehelper.png",
     "author": "thsrite/nanzemxx",
     "level": 2,
     "v2": true,

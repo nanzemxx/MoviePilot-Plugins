@@ -1,24 +1,28 @@
-import json
+import re
 from typing import Tuple
 
 from ruamel.yaml import CommentedMap
 
 from app.core.config import settings
 from app.log import logger
-from app.plugins.smartsignin.sites import _ISiteSigninHandler
+from app.plugins.sitehelper.sites import _ISiteSigninHandler
 from app.utils.http import RequestUtils
 from app.utils.string import StringUtils
 
 
-class Hares(_ISiteSigninHandler):
+class TTG(_ISiteSigninHandler):
     """
-    白兔签到
+    TTG签到
     """
     # 匹配的站点Url，每一个实现类都需要设置为自己的站点Url
-    site_url = "club.hares.top"
+    site_url = "totheglory.im"
 
     # 已签到
-    _sign_text = '已签到'
+    _sign_regex = ['<b style="color:green;">已签到</b>']
+    _sign_text = '亲，您今天已签到过，不要太贪哦'
+
+    # 签到成功
+    _success_text = '您已连续签到'
 
     @classmethod
     def match(cls, url: str) -> bool:
@@ -42,42 +46,52 @@ class Hares(_ISiteSigninHandler):
         render = site_info.get("render")
 
         # 获取页面html
-        html_text = self.get_page_source(url='https://club.hares.top',
+        html_text = self.get_page_source(url="https://totheglory.im",
                                          cookie=site_cookie,
                                          ua=ua,
                                          proxy=proxy,
                                          render=render)
-
         if not html_text:
-            logger.error(f"{site} 模拟访问失败，请检查站点连通性")
-            return False, '模拟访问失败，请检查站点连通性'
+            logger.error(f"{site} 签到失败，请检查站点连通性")
+            return False, '签到失败，请检查站点连通性'
 
         if "login.php" in html_text:
-            logger.error(f"{site} 模拟访问失败，Cookie已失效")
-            return False, '模拟访问失败，Cookie已失效'
+            logger.error(f"{site} 签到失败，Cookie已失效")
+            return False, '签到失败，Cookie已失效'
 
-        # if self._sign_text in html_res.text:
-        #     logger.info(f"今日已签到")
-        #     return True, '今日已签到'
+        # 判断是否已签到
+        sign_status = self.sign_in_result(html_res=html_text,
+                                          regexs=self._sign_regex)
+        if sign_status:
+            logger.info(f"{site} 今日已签到")
+            return True, '今日已签到'
 
-        headers = {
-            'Accept': 'application/json',
-            "User-Agent": ua
+        # 获取签到参数
+        signed_timestamp = re.search('(?<=signed_timestamp: ")\\d{10}', html_text).group()
+        signed_token = re.search('(?<=signed_token: ").*(?=")', html_text).group()
+        logger.debug(f"signed_timestamp={signed_timestamp} signed_token={signed_token}")
+
+        data = {
+            'signed_timestamp': signed_timestamp,
+            'signed_token': signed_token
         }
+        # 签到
         sign_res = RequestUtils(cookies=site_cookie,
-                                headers=headers,
+                                ua=ua,
                                 proxies=settings.PROXY if proxy else None
-                                ).get_res(url="https://club.hares.top/attendance.php?action=sign")
+                                ).post_res(url="https://totheglory.im/signed.php",
+                                           data=data)
         if not sign_res or sign_res.status_code != 200:
             logger.error(f"{site} 签到失败，签到接口请求失败")
             return False, '签到失败，签到接口请求失败'
 
-        # {"code":1,"msg":"您今天已经签到过了"}
-        # {"code":0,"msg":"签到成功"}
-        sign_dict = json.loads(sign_res.text)
-        if sign_dict['code'] == 0:
+        sign_res.encoding = "utf-8"
+        if self._success_text in sign_res.text:
             logger.info(f"{site} 签到成功")
             return True, '签到成功'
-        else:
+        if self._sign_text in sign_res.text:
             logger.info(f"{site} 今日已签到")
             return True, '今日已签到'
+
+        logger.error(f"{site} 签到失败，未知原因")
+        return False, '签到失败，未知原因'

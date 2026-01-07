@@ -29,13 +29,13 @@ from app.utils.string import StringUtils
 from app.utils.timer import TimerUtils
 
 
-class SmartSignIn(_PluginBase):
+class SiteHelper(_PluginBase):
     # 插件名称
-    plugin_name = "智能签到"
+    plugin_name = "站点助手"
     # 插件描述
-    plugin_desc = "智能签到插件，支持CloudFlare绕过，自动模拟登录、签到PT站点。"
+    plugin_desc = "站点助手插件，支持CloudFlare智能绕过，自动模拟登录、签到PT站点。"
     # 插件图标
-    plugin_icon = "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/smartsignin.png"
+    plugin_icon = "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/sitehelper.png"
     # 插件版本
     plugin_version = "1.0.0"
     # 插件作者
@@ -43,7 +43,7 @@ class SmartSignIn(_PluginBase):
     # 作者主页
     author_url = "https://github.com/nanzemxx"
     # 插件配置项ID前缀
-    plugin_config_prefix = "smartsignin_"
+    plugin_config_prefix = "sitehelper_"
     # 加载顺序
     plugin_order = 0
     # 可使用的用户级别
@@ -107,7 +107,7 @@ class SmartSignIn(_PluginBase):
         # 加载模块
         if self._enabled or self._onlyonce:
 
-            self._site_schema = ModuleHelper.load('app.plugins.smartsignin.sites',
+            self._site_schema = ModuleHelper.load('app.plugins.sitehelper.sites',
                                                   filter_func=lambda _, obj: hasattr(obj, 'match'))
 
             # 立即运行一次
@@ -198,7 +198,7 @@ class SmartSignIn(_PluginBase):
             try:
                 if str(self._cron).strip().count(" ") == 4:
                     return [{
-                        "id": "SmartSignIn",
+                        "id": "SiteHelper",
                         "name": "站点自动签到服务",
                         "trigger": CronTrigger.from_crontab(self._cron),
                         "func": self.sign_in,
@@ -219,7 +219,7 @@ class SmartSignIn(_PluginBase):
                             self._end_time = int(times[1])
                         if self._start_time and self._end_time:
                             return [{
-                                "id": "SmartSignIn",
+                                "id": "SiteHelper",
                                 "name": "站点自动签到服务",
                                 "trigger": "interval",
                                 "func": self.sign_in,
@@ -232,7 +232,7 @@ class SmartSignIn(_PluginBase):
                     else:
                         # 默认0-24 按照周期运行
                         return [{
-                            "id": "SmartSignIn",
+                            "id": "SiteHelper",
                             "name": "站点自动签到服务",
                             "trigger": "interval",
                             "func": self.sign_in,
@@ -252,7 +252,7 @@ class SmartSignIn(_PluginBase):
             ret_jobs = []
             for trigger in triggers:
                 ret_jobs.append({
-                    "id": f"SmartSignIn|{trigger.hour}:{trigger.minute}",
+                    "id": f"SiteHelper|{trigger.hour}:{trigger.minute}",
                     "name": "站点自动签到服务",
                     "trigger": "cron",
                     "func": self.sign_in,
