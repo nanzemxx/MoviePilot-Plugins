@@ -107,7 +107,7 @@ class SmartSignIn(_PluginBase):
         # 加载模块
         if self._enabled or self._onlyonce:
 
-            self._site_schema = ModuleHelper.load('app.plugins.autosignin.sites',
+            self._site_schema = ModuleHelper.load('app.plugins.smartsignin.sites',
                                                   filter_func=lambda _, obj: hasattr(obj, 'match'))
 
             # 立即运行一次
