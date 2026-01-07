@@ -29,13 +29,13 @@ from app.utils.string import StringUtils
 from app.utils.timer import TimerUtils
 
 
-class AutoSignIn(_PluginBase):
+class SmartSignIn(_PluginBase):
     # 插件名称
-    plugin_name = "站点自动签到"
+    plugin_name = "智能签到"
     # 插件描述
-    plugin_desc = "自动模拟登录、签到站点。"
+    plugin_desc = "智能签到插件，支持CloudFlare绕过，自动模拟登录、签到PT站点。"
     # 插件图标
-    plugin_icon = "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/autosignin.png"
+    plugin_icon = "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/smartsignin.png"
     # 插件版本
     plugin_version = "2.7.0"
     # 插件作者
@@ -43,7 +43,7 @@ class AutoSignIn(_PluginBase):
     # 作者主页
     author_url = "https://github.com/nanzemxx"
     # 插件配置项ID前缀
-    plugin_config_prefix = "autosignin_"
+    plugin_config_prefix = "smartsignin_"
     # 加载顺序
     plugin_order = 0
     # 可使用的用户级别
