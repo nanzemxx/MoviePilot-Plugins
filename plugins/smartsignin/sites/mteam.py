@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 from ruamel.yaml import CommentedMap
 
 from app.core.config import settings
-from app.plugins.autosignin.sites import _ISiteSigninHandler
+from app.plugins.smartsignin.sites import _ISiteSigninHandler
 from app.utils.http import RequestUtils
 from app.utils.string import StringUtils
 

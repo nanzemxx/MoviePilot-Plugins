@@ -1,6 +1,6 @@
 """
 CloudFlare 绕过辅助工具
-用于 autosignin 插件绕过 CloudFlare 防护
+用于 smartsignin 插件绕过 CloudFlare 防护
 借鉴 deepflood/nodeseek 插件的成功经验
 """
 import random

@@ -198,7 +198,7 @@ class SmartSignIn(_PluginBase):
             try:
                 if str(self._cron).strip().count(" ") == 4:
                     return [{
-                        "id": "AutoSignIn",
+                        "id": "SmartSignIn",
                         "name": "站点自动签到服务",
                         "trigger": CronTrigger.from_crontab(self._cron),
                         "func": self.sign_in,
@@ -219,7 +219,7 @@ class SmartSignIn(_PluginBase):
                             self._end_time = int(times[1])
                         if self._start_time and self._end_time:
                             return [{
-                                "id": "AutoSignIn",
+                                "id": "SmartSignIn",
                                 "name": "站点自动签到服务",
                                 "trigger": "interval",
                                 "func": self.sign_in,
@@ -232,7 +232,7 @@ class SmartSignIn(_PluginBase):
                     else:
                         # 默认0-24 按照周期运行
                         return [{
-                            "id": "AutoSignIn",
+                            "id": "SmartSignIn",
                             "name": "站点自动签到服务",
                             "trigger": "interval",
                             "func": self.sign_in,
@@ -252,7 +252,7 @@ class SmartSignIn(_PluginBase):
             ret_jobs = []
             for trigger in triggers:
                 ret_jobs.append({
-                    "id": f"AutoSignIn|{trigger.hour}:{trigger.minute}",
+                    "id": f"SmartSignIn|{trigger.hour}:{trigger.minute}",
                     "name": "站点自动签到服务",
                     "trigger": "cron",
                     "func": self.sign_in,
