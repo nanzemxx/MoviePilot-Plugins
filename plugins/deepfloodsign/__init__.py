@@ -52,9 +52,9 @@ class deepfloodsign(_PluginBase):
     # 插件版本
     plugin_version = "2.1.0"
     # 插件作者
-    plugin_author = "madrays"
+    plugin_author = "nanzemxx"
     # 作者主页
-    author_url = "https://github.com/madrays"
+    author_url = "https://github.com/nanzemxx"
     # 插件配置项ID前缀
     plugin_config_prefix = "deepfloodsign_"
     # 加载顺序

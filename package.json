@@ -5,7 +5,7 @@
     "labels": "签到,NodeSeek,论坛",
     "version": "2.1.0",
     "icon": "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/nodeseeksign.png",
-    "author": "madrays",
+    "author": "nanzemxx",
     "level": 2,
     "v2": true,
     "history": {
