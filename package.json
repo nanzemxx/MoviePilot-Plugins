@@ -31,5 +31,19 @@
     "history": {
       "v2.1.0": "初始版本：基于NodeSeek签到插件改造，支持DeepFlood论坛签到"
     }
+  },
+  "autosignin": {
+    "name": "站点自动签到",
+    "description": "自动模拟登录、签到PT站点，支持CloudFlare绕过",
+    "labels": "签到,PT,自动化",
+    "version": "2.7.0",
+    "icon": "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/autosignin.png",
+    "author": "thsrite/nanzemxx",
+    "level": 2,
+    "v2": true,
+    "history": {
+      "v2.7.0": "集成CloudFlare智能绕过：三层降级策略(cloudscraper→curl_cffi→requests)，移除Playwright依赖，性能提升5倍+",
+      "v2.6.1": "原版本"
+    }
   }
 }

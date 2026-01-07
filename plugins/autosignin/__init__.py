@@ -35,13 +35,13 @@ class AutoSignIn(_PluginBase):
     # 插件描述
     plugin_desc = "自动模拟登录、签到站点。"
     # 插件图标
-    plugin_icon = "signin.png"
+    plugin_icon = "https://raw.githubusercontent.com/nanzemxx/MoviePilot-Plugins/main/icons/autosignin.png"
     # 插件版本
-    plugin_version = "2.6.1"
+    plugin_version = "2.7.0"
     # 插件作者
-    plugin_author = "thsrite"
+    plugin_author = "thsrite/nanzemxx"
     # 作者主页
-    author_url = "https://github.com/thsrite"
+    author_url = "https://github.com/nanzemxx"
     # 插件配置项ID前缀
     plugin_config_prefix = "autosignin_"
     # 加载顺序
